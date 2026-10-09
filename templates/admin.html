@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Fieldwatch — Officer workspace{% endblock %}
+{% block content %}
+<main class="admin-page">
+  <header class="admin-header"><a class="brand" href="/"><span class="brand-icon" data-icon="leaf"></span>fieldwatch<span class="brand-dot">.</span></a>
+    <span class="admin-label">OFFICER WORKSPACE</span><a class="back-map" href="/">Back to map</a>
+    <button id="admin-logout" data-action="logout" class="icon-button" aria-label="Log out" data-icon="logout" hidden></button>
+  </header>
+  <section id="admin-login" class="admin-login" hidden>
+    <span data-icon="shield"></span><div class="eyebrow">AUTHORISED ACCESS</div><h1>Officer login</h1>
+    <p>Review registrations and coordinate responses.</p>
+    <form id="admin-login-form"><label>Administrator password<input name="password" type="password" autocomplete="current-password" required></label><button class="primary">Log in</button></form>
+  </section>
+  <div id="admin-layout" class="admin-layout" hidden>
+    <aside class="admin-nav"><div class="eyebrow">MANAGEMENT</div>
+      <button data-tab="users">Approve new users</button><button data-tab="reports">Resolve issues</button>
+      <button data-tab="warnings">Early warnings</button><button data-tab="notifications">Notification log</button><button data-tab="settings">Settings & communities</button>
+    </aside>
+    <section class="admin-main"><div id="admin-heading" class="admin-title"></div><div id="admin-stats" class="admin-stats"></div><div id="admin-content"></div></section>
+  </div>
+  <div id="admin-loading" class="loading-screen">Loading officer workspace…</div>
+</main>
+<div id="admin-modal" class="modal-backdrop" hidden><section id="admin-modal-content" class="case-modal" role="dialog" aria-modal="true" aria-label="Manage record"></section></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='scripts/admin.js') }}" defer></script>{% endblock %}

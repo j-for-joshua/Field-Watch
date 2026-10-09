@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block head %}
+<!-- Leaflet is only the map fallback; Google Maps is used when a key is configured. -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+{% endblock %}
+{% block content %}
+<main class="map-page">
+  <div id="map" class="map-canvas" aria-label="Community map"></div>
+  <header id="topbar" class="topbar">
+    <a class="brand" href="/"><span class="brand-icon" data-icon="leaf"></span>fieldwatch<span class="brand-dot">.</span></a>
+    <div class="bar-divider"></div><div id="topbar-content" class="topbar-body"></div>
+  </header>
+  <button id="mobile-menu" class="mobile-menu" data-action="toggle-panel">Map menu</button>
+  <aside id="sidebar" class="sidebar">
+    <nav class="side-tabs"><button data-panel="overview">Issues/Reports</button><button data-panel="alerts">Alerts</button></nav>
+    <div id="sidebar-content" class="sidebar-content"><p>Loading your community…</p></div>
+    <footer class="sidebar-footer"><button data-panel="about">How it works</button><a href="/admin">Admin</a></footer>
+  </aside>
+  <div class="map-type-control"><label for="map-type">Map view</label>
+    <select id="map-type" aria-label="Map view"><option value="roadmap">Map</option><option value="satellite">Satellite</option><option value="hybrid">Satellite + labels</option><option value="terrain">Terrain</option></select>
+  </div>
+  <div class="map-tools">
+    <button data-action="zoom-in" aria-label="Zoom in" data-icon="plus"></button>
+    <button data-action="zoom-out" aria-label="Zoom out" data-icon="minus"></button>
+    <button data-action="locate" aria-label="Use my location" data-icon="locate"></button>
+  </div>
+  <div id="map-credit" class="map-credit">Loading map…</div>
+</main>
+<!-- Login is a modal, separate from the in-map sign-up flow. -->
+<div id="login-modal" class="modal-backdrop" hidden>
+  <section class="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <button data-action="close-login" class="modal-close icon-button" aria-label="Close login" data-icon="close"></button>
+    <span class="brand-icon" data-icon="leaf"></span><h2 id="login-title">Welcome back.</h2>
+    <p>Log in to manage your plot and report concerns.</p>
+    <form id="login-form"><label>Phone number<input name="phone" type="tel" autocomplete="tel" required placeholder="08012345678"></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+      <button class="primary" type="submit">Log in</button>
+    </form>
+    <button class="text-button" data-action="signup">New here? Sign up</button>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='scripts/map.js') }}" defer></script>
+<script src="{{ url_for('static', filename='scripts/main.js') }}" defer></script>
+{% endblock %}
